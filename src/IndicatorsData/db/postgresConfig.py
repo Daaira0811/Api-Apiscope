@@ -2,14 +2,11 @@ import psycopg2
 from psycopg2 import DatabaseError
 from decouple import config
 
-# Conexión a mongodb
-
-
-
 # Conexión a postgresql
 
 def get_connection():
     try:
+        print("Conectando a BD postgresql")
         return psycopg2.connect(
             host=config('PGSQL_HOST'),
             user=config('PGSQL_USER'),
@@ -17,4 +14,5 @@ def get_connection():
             database=config('PGSQL_DATABASE')
         )
     except DatabaseError as ex:
-        raise ex
+        print("Conexión no lograda")
+        raise Exception(ex)

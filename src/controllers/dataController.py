@@ -1,1 +1,0 @@
-# Se agregan las funciones de obtener y actualizar el archivo data
