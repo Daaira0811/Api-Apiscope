@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from RespData.controllers.respController import RespController
 
 respData=Blueprint('respData',__name__,url_prefix='/respData')
@@ -10,9 +10,10 @@ def get_data():
     except Exception as ex:
         return jsonify({'message':str(ex)}), 500
     
-@respData.route('/updateData', methods=['GET'])
+@respData.route('/updateData', methods=['POST'])
 def post_data():
     try:
-        return RespController.updateRespData()
+        data= request.get_json()
+        return RespController.updateRespData(data)
     except Exception as ex:
         return jsonify({'message':str(ex)}), 500

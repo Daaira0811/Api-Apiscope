@@ -20,9 +20,8 @@ class RespController:
                 mimetype='aplication/json'
             )
         
-    def updateRespData():
+    def updateRespData(data):
         try:
-            data ='["Areas verdes",["Area verde por habitantes","Bloque con indicador",1,"Bloques dentro del rango de influencia",[0,3,9,19],"Valor actual de personas dentro del area",112,"Valor optimo de personas dentro del area",3732,"Bloques sin influencia",[5,6,10]],"Educacion",["Equipos educacionales basicos","Bloque con indicador",32,"Bloques dentro del rango de influencia",[0,3,5,6,9,10,19],"Valor actual de personas dentro del area",215,"Valor optimo de personas dentro del area",12,"Bloques sin influencia",[]],"Educacion",["Equipos educacionales medios","Bloque con indicador",30,"Bloques dentro del rango de influencia",[0,3,5,6,9,10,19],"Valor actual de personas dentro del area",215,"Valor optimo de personas dentro del area",12,"Bloques sin influencia",[]],"Deportivos",["Gimnasios","Bloque con indicador",31,"Bloques dentro del rango de influencia",[0,3,5,6,9,10,19],"Valor actual de personas dentro del area",215,"Valor optimo de personas dentro del area",12,"Bloques sin influencia",[]]]' 
             id=mongo.insert_one({'data':data})
             return str(id)
         except Exception as ex:

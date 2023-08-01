@@ -22,7 +22,6 @@ class IndicatorController():
                 for row in resultset:
                     indicator = Indicator(row[0], row[1])
                     indicators.append(indicator.to_JSON())
-            self.connection.close()
             return indicators
         except Exception as ex:
             raise Exception(ex)

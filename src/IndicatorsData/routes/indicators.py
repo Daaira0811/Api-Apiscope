@@ -5,7 +5,7 @@ from IndicatorsData.controllers.IndicatorController import IndicatorController
 
 indicators=Blueprint('indicators',__name__,url_prefix='/indicators')
 blockController=BlockController()
-
+indicator=IndicatorController()
 
 @indicators.route('/getCoordinates/<int:id>', methods=['GET'])
 def getCoordinates(id):
@@ -41,7 +41,6 @@ def updateBlocks():
 @indicators.route('/getIndicators', methods=['GET'])
 def getIndicators():
     try:
-        indicator=IndicatorController()
         return indicator.get_indicators()
     except Exception as ex:
         return jsonify({'message':str(ex)}), 500
