@@ -12,7 +12,6 @@ class VariableController():
     def get_variable_from_Db(self,variable_number):
         try:
             variables=[]
-            #query="Select id_bloque, valor FROM variable_bloque WHERE id_variable={} ".format(variable_number)            
             query="Select V.id_bloque, valor FROM variable_bloque V INNER JOIN bloque_mesa B ON V.id_bloque=B.id_bloque AND estado=true AND id_variable={}".format(variable_number)
             #Esta consulta valida que el id_bloque se encuentre dentro de la mesa y tenga el valor de la variable que se quiera buscar
             with self.connection.cursor() as cursor:
@@ -21,19 +20,18 @@ class VariableController():
                 if (any(resultset)):   
                     for row in resultset:
                        
-                # Se obtiene el radio de cada variable
+                # Se obtiene el radio de inlcuencia de cada variable
                         radio = VariableController.get_radio_influence(self,variable_number)
                         if (not any(row)):
                             ('any row')
                         else:
                             variable = Variable(row[0], row[1], radio)
                             variables.append(variable.to_JSON())
-                            #print(variables)
                     return variables
-
         except Exception as ex:
             raise Exception(ex) 
         
+    #Función que obtiene el rango de incluencia de cierta variable
     def get_radio_influence(self,id_variable):
         try:
             query="SELECT radio_influencia FROM variable WHERE id_variable={}".format(id_variable)
@@ -44,8 +42,7 @@ class VariableController():
         except Exception as ex:
             raise Exception(ex)
 
-#Se acuerdo a los indicadors, asociados a la tabla, se buscan las variables a calcular de cada indicador, que contenga valores 
-# dentro de la tabla
+#De acuerdo a los indicadores, asociados a la tabla, se buscan las variables a calcular de cada indicador
     def get_variables_from_indicators(self,id_indicator):
         try:
             variables=[]

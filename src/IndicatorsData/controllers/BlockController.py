@@ -8,7 +8,7 @@ class BlockController():
     def __init__(self):
         self.connection=get_connection()
 
-##Esta función me retorna una lista de las coordenadas de todos los bloques de la mesa
+#Esta función me retorna una lista de las coordenadas de un bloque presente en la tabla
     def get_coordinates_from_db(self,block_id):
         try:
             block=None
@@ -23,7 +23,7 @@ class BlockController():
             print('Error al buscar las coordenadas del id: '+ str(block_id))
             return jsonify({'message':str(ex)}), 500
            
-        
+#Esta función es similar a la primera, en este caso, recibe una lista de ids y retorna una lista con las coordenadas de cada bloque
     def get_coordinates_from_db_list(self,blocks_ids):
             try:
                 blocks=[]
@@ -42,8 +42,7 @@ class BlockController():
                 raise Exception(ex)
                 
                 
-# Modidicar el nombre de la mesa para que lo obtenga como parámetro de la configuración del proyecto
-
+# Esta funci[ón obtiene la lista de bloques que se encuentran asociados a una mesa (estén o no activos)
     def get_block_table(self):
         try:
             with self.connection.cursor() as cursor:
@@ -60,9 +59,10 @@ class BlockController():
                     id_block=bloque[0]
                     pattern=bloque[1]
                     with self.connection.cursor() as cursor:
-                        #Se debe buscar el bloque que tenga el patrón, se obtiene el id
+                        #Se busca el bloque que tenga el patrón correspondiente, se obtiene el id
                         cursor.execute("SELECT id_bloque FROM bloque WHERE cod_colores='"+pattern+"'")
-                        #Se modifica el id dentro del id del bloque dentro de la tabla bloque_mesa
+
+                        #Con el id del bloque anterior, se modifica la tabla bloque_mesa en la posición correspondiente
                         resultset = cursor.fetchall()
                         if resultset:
                             id_block_db=str(resultset[0][0])

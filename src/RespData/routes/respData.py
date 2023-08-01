@@ -3,13 +3,14 @@ from RespData.controllers.respController import RespController
 
 respData=Blueprint('respData',__name__,url_prefix='/respData')
 
+#Ruta para obtener archivo 
 @respData.route('/getData', methods=['GET'])
 def get_data():
     try:
         return RespController.getRespData()
     except Exception as ex:
         return jsonify({'message':str(ex)}), 500
-    
+#Ruta para actualizar archivo
 @respData.route('/updateData', methods=['POST'])
 def post_data():
     try:

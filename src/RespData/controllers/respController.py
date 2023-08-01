@@ -6,6 +6,7 @@ from RespData.db.mongoConfig import init_app
 mongo=init_app()
 
 class RespController:
+    #Obtener archivo
     def getRespData():
         try:
             response=mongo.find().sort("_id",-1).limit(1)
@@ -19,7 +20,7 @@ class RespController:
                 status=500,
                 mimetype='aplication/json'
             )
-        
+    #Editar archivo
     def updateRespData(data):
         try:
             id=mongo.insert_one({'data':data})
