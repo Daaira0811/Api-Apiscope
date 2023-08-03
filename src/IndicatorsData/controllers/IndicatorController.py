@@ -13,7 +13,7 @@ class IndicatorController():
     def get_Indicators_from_Db(self):
         try:
             indicators=[]
-            query="SELECT V.id_indicador, B.nombre FROM indicador_mesa V  INNER JOIN indicador B ON V.id_indicador=B.id_indicador INNER JOIN mesa N ON V.id_mesa=N.id_mesa AND N.nombre={}".format(config('Tablename'))
+            query="SELECT V.id_indicador, B.nombre FROM indicador_mesa V  INNER JOIN indicador B ON V.id_indicador=B.id_indicador INNER JOIN mesa N ON V.id_mesa=N.id_mesa AND N.nombre='{}'".format(config('Tablename'))
             with self.connection.cursor() as cursor:
                 cursor.execute(query)
                 resultset = cursor.fetchall()
